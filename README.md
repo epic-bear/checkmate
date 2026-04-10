@@ -1,7 +1,7 @@
 # CheckMate
 
-[![Build](https://github.com/EpicBear/CheckMate/actions/workflows/java-ci.yml/badge.svg)](https://github.com/EpicBear/CheckMate/actions/workflows/java-ci.yml)
-![License](https://img.shields.io/github/license/EpicBear/CheckMate)
+[![Build](https://img.shields.io/github/actions/workflow/status/epic-bear/checkmate/java-ci.yml?branch=main&label=build)](https://github.com/epic-bear/checkmate/actions/workflows/java-ci.yml)
+[![License](https://img.shields.io/github/license/epic-bear/checkmate)](https://github.com/epic-bear/checkmate/blob/main/LICENSE)
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 
 CheckMate is a small Java validation library with:
