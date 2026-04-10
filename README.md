@@ -54,9 +54,13 @@ ValidationResult result = Validators.password("abc")
         .isStrongPassword() // min length + digit + uppercase + special char
         .validateResult();
 
-if (!result.isValid()) {
-    System.out.println(result.getAllErrors());
-}
+if(!result.
+
+isValid()){
+        System.out.
+
+println(result.getAllErrors());
+        }
 ```
 
 ### Add a custom rule in chain
@@ -192,10 +196,18 @@ ValidationResult result = validator.validate(java.util.Map.of(
         "password", "weak"
 ));
 
-System.out.println(result.isValid()); // false
-System.out.println(result.getFieldErrors());
-System.out.println(result.getErrorsForField("email"));
-System.out.println(result.getAllErrors());
+System.out.
+
+println(result.isValid()); // false
+        System.out.
+
+println(result.getFieldErrors());
+        System.out.
+
+println(result.getErrorsForField("email"));
+        System.out.
+
+println(result.getAllErrors());
 ```
 
 ## Custom rules
