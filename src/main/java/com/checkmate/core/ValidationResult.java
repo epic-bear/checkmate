@@ -1,4 +1,4 @@
-package com.checkmate;
+package com.checkmate.core;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +11,10 @@ public class ValidationResult {
 
     public void addError(String field, String message) {
         fieldErrors.computeIfAbsent(field, key -> new ArrayList<>()).add(message);
+    }
+
+    public void addError(String message) {
+        addError("value", message);
     }
 
     public boolean isValid() {
@@ -33,6 +37,12 @@ public class ValidationResult {
             }
         }
         return Collections.unmodifiableList(all);
+    }
+
+    public List<String> getErrorsForField(String field) {
+        return fieldErrors.containsKey(field)
+                ? Collections.unmodifiableList(fieldErrors.get(field))
+                : List.of();
     }
 }
 

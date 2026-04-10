@@ -1,5 +1,7 @@
 package com.checkmate.rules;
 
+import com.checkmate.core.Rule;
+
 import java.util.Optional;
 
 public class PasswordRule implements Rule {
@@ -21,27 +23,12 @@ public class PasswordRule implements Rule {
             return Optional.of(message);
         }
 
-        boolean hasUpper = false;
-        boolean hasLower = false;
-        boolean hasDigit = false;
-        boolean hasSpecial = false;
+        boolean valid = value.chars().anyMatch(Character::isUpperCase)
+                && value.chars().anyMatch(Character::isLowerCase)
+                && value.chars().anyMatch(Character::isDigit)
+                && value.chars().anyMatch(c -> !Character.isLetterOrDigit(c));
 
-        for (char c : value.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                hasUpper = true;
-            } else if (Character.isLowerCase(c)) {
-                hasLower = true;
-            } else if (Character.isDigit(c)) {
-                hasDigit = true;
-            } else {
-                hasSpecial = true;
-            }
-        }
-
-        if (hasUpper && hasLower && hasDigit && hasSpecial) {
-            return Optional.empty();
-        }
-        return Optional.of(message);
+        return valid ? Optional.empty() : Optional.of(message);
     }
 }
 

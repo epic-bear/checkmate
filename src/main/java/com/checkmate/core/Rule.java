@@ -1,4 +1,4 @@
-package com.checkmate.rules;
+package com.checkmate.core;
 
 import java.util.Optional;
 

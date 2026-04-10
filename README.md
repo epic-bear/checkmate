@@ -1,19 +1,24 @@
 # CheckMate
 
-CheckMate is a small Java validation library that applies reusable rules to incoming string payloads.
+CheckMate is a small Java validation library with fluent validators, reusable rules, and multi-error results.
+
+## MVP features
+
+- Fluent API
+- Specialized validators (`EmailValidator`, `PasswordValidator`, `DateValidator`)
+- Multiple errors per value
+- Custom rules (`withRule(...)`)
+- Entry-point factory (`Validators`)
 
 ## Project structure
 
-- `pom.xml`
-- `src/main/java/com/checkmate/Validator.java`
-- `src/main/java/com/checkmate/ValidationResult.java`
-- `src/main/java/com/checkmate/rules/Rule.java`
-- `src/main/java/com/checkmate/rules/EmailRule.java`
-- `src/main/java/com/checkmate/rules/PhoneRule.java`
-- `src/main/java/com/checkmate/rules/PasswordRule.java`
-- `src/main/java/com/checkmate/rules/NotEmptyRule.java`
-- `src/main/java/com/checkmate/utils/RegexUtils.java`
-- `src/test/java/com/checkmate/ValidatorTest.java`
+- `src/main/java/com/checkmate/core/`
+- `src/main/java/com/checkmate/validators/`
+- `src/main/java/com/checkmate/rules/common/`
+- `src/main/java/com/checkmate/rules/email/`
+- `src/main/java/com/checkmate/rules/password/`
+- `src/main/java/com/checkmate/rules/date/`
+- `src/main/java/com/checkmate/Validators.java`
 
 ## Requirements
 
@@ -26,18 +31,21 @@ CheckMate is a small Java validation library that applies reusable rules to inco
 mvn test
 ```
 
-## Quick example
+## Quick examples
 
 ```java
-Validator validator = new Validator()
-        .addRule("email", new NotEmptyRule())
-        .addRule("email", new EmailRule());
+boolean valid = Validator.of("user@example.com")
+        .isEmail()
+        .isNotEmpty()
+        .maxLength(50)
+        .validate();
+```
 
-ValidationResult result = validator.validate(Map.of("email", "user@example.com"));
-if (result.isValid()) {
-    System.out.println("Valid payload");
-} else {
-    System.out.println(result.getAllErrors());
-}
+```java
+boolean strongPassword = Validators.password("Strong!123")
+        .isNotEmpty()
+        .isStrongPassword()
+        .maxLength(50)
+        .validate();
 ```
 

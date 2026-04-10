@@ -1,26 +1,14 @@
 package com.checkmate.rules;
 
-import com.checkmate.utils.RegexUtils;
+import com.checkmate.rules.email.EmailFormatRule;
 
-import java.util.Optional;
-
-public class EmailRule implements Rule {
-    private final String message;
-
+public class EmailRule extends EmailFormatRule {
     public EmailRule() {
-        this("must be a valid email address");
+        super();
     }
 
     public EmailRule(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public Optional<String> validate(String value) {
-        if (!RegexUtils.matches(RegexUtils.EMAIL_PATTERN, value)) {
-            return Optional.of(message);
-        }
-        return Optional.empty();
+        super(message);
     }
 }
 

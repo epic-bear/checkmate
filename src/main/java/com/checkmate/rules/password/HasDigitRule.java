@@ -1,24 +1,23 @@
-package com.checkmate.rules;
+package com.checkmate.rules.password;
 
 import com.checkmate.core.Rule;
-import com.checkmate.utils.RegexUtils;
 
 import java.util.Optional;
 
-public class PhoneRule implements Rule {
+public class HasDigitRule implements Rule {
     private final String message;
 
-    public PhoneRule() {
-        this("must be a valid phone number");
+    public HasDigitRule() {
+        this("must contain at least one digit");
     }
 
-    public PhoneRule(String message) {
+    public HasDigitRule(String message) {
         this.message = message;
     }
 
     @Override
     public Optional<String> validate(String value) {
-        if (!RegexUtils.matches(RegexUtils.PHONE_PATTERN, value)) {
+        if (value == null || value.chars().noneMatch(Character::isDigit)) {
             return Optional.of(message);
         }
         return Optional.empty();

@@ -1,21 +1,31 @@
 # Maven
-/target/
+target/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+replay_pid*
 
 # IntelliJ IDEA
-/.idea/
+.idea/
 *.iml
 *.ipr
 *.iws
+out/
 
 # Eclipse
-/.classpath
-/.project
-/.settings/
+.classpath
+.project
+.settings/
+bin/
 
 # VS Code
-/.vscode/
+.vscode/
 
-# OS generated files
+# OS files
 .DS_Store
 Thumbs.db
 

@@ -1,9 +1,11 @@
 package com.checkmate;
 
+import com.checkmate.core.ValidationResult;
 import com.checkmate.rules.EmailRule;
-import com.checkmate.rules.NotEmptyRule;
+import com.checkmate.rules.common.NotEmptyRule;
 import com.checkmate.rules.PasswordRule;
 import com.checkmate.rules.PhoneRule;
+import com.checkmate.rules.common.RegexRule;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -57,6 +59,81 @@ class ValidatorTest {
         assertTrue(result.getFieldErrors().containsKey("phone"));
         assertTrue(result.getFieldErrors().containsKey("password"));
         assertTrue(result.getFieldErrors().containsKey("name"));
+    }
+
+    @Test
+    void shouldValidateEmailFluently() {
+        boolean valid = Validator.of("user@example.com")
+                .isEmail()
+                .isNotEmpty()
+                .maxLength(50)
+                .validate();
+
+        assertTrue(valid);
+    }
+
+    @Test
+    void shouldFailEmailValidationForInvalidEmail() {
+        boolean valid = Validators.email("not-an-email")
+                .isEmail()
+                .validate();
+
+        assertFalse(valid);
+    }
+
+    @Test
+    void shouldValidatePasswordWithMaxLength() {
+        boolean valid = Validators.password("Strong!123")
+                .isNotEmpty()
+                .isStrongPassword()
+                .maxLength(50)
+                .validate();
+
+        assertTrue(valid);
+    }
+
+    @Test
+    void shouldFailPasswordValidationWhenTooLong() {
+        String longPassword = "VeryStr0ng!Password".repeat(10);
+        
+        boolean valid = Validators.password(longPassword)
+                .isNotEmpty()
+                .isStrongPassword()
+                .maxLength(50)
+                .validate();
+
+        assertFalse(valid);
+    }
+
+    @Test
+    void shouldValidatePhoneWithFluentValidator() {
+        boolean valid = Validators.of("+380501112233")
+                .isPhone()
+                .minLength(10)
+                .maxLength(15)
+                .validate();
+
+        assertTrue(valid);
+    }
+
+    @Test
+    void shouldValidateFutureDateWithSpecializedValidator() {
+        boolean valid = Validators.date("2099-01-01")
+                .isFutureDate()
+                .validate();
+
+        assertTrue(valid);
+    }
+
+    @Test
+    void shouldCollectMultipleFluentErrors() {
+        ValidationResult result = Validators.password("abc")
+                .isStrongPassword()
+                .withRule(new RegexRule("^[A-Za-z0-9!@#$%^&*]+$", "contains invalid symbols"))
+                .validateResult();
+
+        assertFalse(result.isValid());
+        assertTrue(result.getErrorsForField("value").size() >= 2);
     }
 
     private Validator buildValidator() {
