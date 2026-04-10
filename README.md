@@ -231,3 +231,7 @@ boolean valid = Validators.email("root@admin.local")
 mvn test
 ```
 
+## License
+
+MIT License. See `LICENSE`.
+
