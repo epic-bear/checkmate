@@ -1,6 +1,6 @@
 # CheckMate
 
-[![Build](https://github.com/EpicBear/CheckMate/actions/workflows/ci.yml/badge.svg)](https://github.com/EpicBear/CheckMate/actions/workflows/ci.yml)
+[![Build](https://github.com/EpicBear/CheckMate/actions/workflows/java-ci.yml/badge.svg)](https://github.com/EpicBear/CheckMate/actions/workflows/java-ci.yml)
 ![License](https://img.shields.io/github/license/EpicBear/CheckMate)
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 
